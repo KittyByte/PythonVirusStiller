@@ -1,2 +1,3 @@
-.vscode/settings.json
+.vscode/
 Virus/config.py
+Virus/__pycache__/
