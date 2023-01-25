@@ -1,3 +1,6 @@
 .vscode/
 Virus/config.py
 Virus/__pycache__/
+.idea/
+build/
+dist/

