@@ -11,3 +11,6 @@
 На 20.12.22
 ![image](https://user-images.githubusercontent.com/94567698/208616447-9e262980-38c0-4fe0-85b4-ee3fb92d44e7.png)
 
+VERSION 1.1 | 19.02.23
+
+![image](https://user-images.githubusercontent.com/94567698/219961051-57720558-9eb1-4231-8b1d-62c06088eec2.png)
