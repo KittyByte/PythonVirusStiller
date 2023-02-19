@@ -4,3 +4,4 @@ Virus/__pycache__/
 .idea/
 build/
 dist/
+Virus/draft.py

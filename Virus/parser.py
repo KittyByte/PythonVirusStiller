@@ -1,15 +1,16 @@
 import json
 
-path = r'' # путь к кукисам
-out_path = r'' # путь вывода результата
+
+path = r''  # путь к кукисам
+out_path = r''  # путь вывода результата
 
 
-def parser(path):
+def parser():
     with open(path, 'r') as f:
         jsf = json.load(f)
         res = '['
         for i in jsf:
-            if i['domain'] == ".instagram.com":
+            if i['domain'] == ".instagram.com":  # за место .instagram.com то что нужно вам
                 res += str(i)+','
         res += ']'
 
@@ -23,4 +24,4 @@ def parser(path):
 
 
 if __name__ == "__main__":
-    parser(path)
+    parser()

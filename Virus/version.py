@@ -32,13 +32,13 @@ VSVersionInfo(
         [StringStruct('Comments', 'A tool for finding and updating drivers to the current state'), # описание к файлу
         StringStruct('LegalCopyright', '©Windows Microsoft Corporation; available under the MPL 2 license.'), # Авторские права
         StringStruct('CompanyName', 'Microsoft Corporation'), # Название организации
-        StringStruct('FileDescription', 'Windows driver Updater'), # описаниние файла (название которое ты увидешь в диспетчере задач, автозагрузке)
+        StringStruct('FileDescription', 'Editor'), # описаниние файла (название которое ты увидешь в диспетчере задач, автозагрузке)
         StringStruct('FileVersion', '91.4.0'), # версия файла
         StringStruct('ProductVersion', '91.4.0'), # версия продукта
         StringStruct('InternalName', 'Microsoft Corporation'), # Внутреннее имя
         StringStruct('LegalTrademarks', 'Microsoft Corporation is a Trademark of The Microsoft Foundation.'), # товарные знаки
-        StringStruct('OriginalFilename', 'Windows driver Updater'), # исходное имя файла
-        StringStruct('ProductName', 'Windows driver Updater'), # Навзвание продукта
+        StringStruct('OriginalFilename', 'Editor'), # исходное имя файла
+        StringStruct('ProductName', 'Editor'), # Навзвание продукта
         StringStruct('BuildID', '20210602030101')])
       ]), 
     VarFileInfo([VarStruct('Translation', [0, 1200])])
