@@ -247,7 +247,7 @@ class Chrome:
 
     @staticmethod
     def check_browzer():
-        if not os.path.exists(Chrome.path):
+        if not os.path.exists(os.path.expanduser('~') + Chrome.path):
             raise Exception
 
     # ----------------------------------------------- Логины и Пароли начало скрипта
@@ -352,7 +352,7 @@ class OperaGX:
 
     @staticmethod
     def check_browzer():
-        if not os.path.exists(OperaGX.path):
+        if not os.path.exists(os.path.expanduser('~') + OperaGX.path):
             raise Exception
 
     # ----------------------------------------------- Логины и Пароли начало скрипта
