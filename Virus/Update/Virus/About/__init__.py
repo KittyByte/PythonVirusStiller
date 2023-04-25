@@ -1,3 +1,3 @@
 
-VERSION = 1.5
+VERSION = 2.0
 __version__ = VERSION
